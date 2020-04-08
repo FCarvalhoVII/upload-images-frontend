@@ -1,0 +1,45 @@
+.container-ul {
+    margin-top: 20px;
+}
+
+.container-ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #444;
+}
+
+.container-ul li + li {
+    margin-top: 15px;
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+}
+
+.file-info div {
+    display: flex;
+    flex-direction: column;
+}
+
+.file-info div span {
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
+}
+
+.file-info div span button {
+    border: 0;
+    background: transparent;
+    color: #e57878;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.preview {
+    width: 36px;
+    height: 36px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
