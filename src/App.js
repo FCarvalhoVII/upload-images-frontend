@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { uniqueId } from 'lodash'
 import fileSize from 'filesize'
 
@@ -11,8 +11,27 @@ import 'react-circular-progressbar/dist/styles.css'
 import Upload from './components/Upload'
 import FileList from './components/FileList'
 
-function App() {
+function App(imageFile) {
     const [ uploadedFiles, setUploadedFiles ] = useState([])
+
+    useEffect(() => {
+        async function getPosts() {
+            const response = await api.get('posts')
+
+            const files = response.data.map(file => ({
+                id: file._id,
+                name: file.name,
+                readableSize: fileSize(file.size),
+                preview: file.url,
+                uploaded: true,
+                url: file.url
+            }))
+
+            setUploadedFiles(files)
+        }
+
+        getPosts()
+    }, [imageFile])
 
     function handleUpload(files) {
         const uploaded = files.map(file => ({
@@ -27,20 +46,19 @@ function App() {
             url: null
         }))
 
-        const lotFiles = uploadedFiles.concat(uploaded)
+        setUploadedFiles(uploadedFiles.concat(uploaded))
 
-        setUploadedFiles(lotFiles)
-
-        uploaded.forEach(processUpload)
+        uploaded.forEach(file => processUpload(file))
     }
 
-    function updateFile(id, data) {
-        const updateFiles = { uploadedFiles: uploadedFiles.map(file => {
+    const updateFile = useCallback((id, data) => {
+        const files = uploadedFiles.map(file => {
             return id === file.id ? { ...file, ...data } : file
-        }) }
+        })
 
-        setUploadedFiles(updateFiles)
-    }
+        setUploadedFiles(files)
+
+    }, [uploadedFiles])
 
     function processUpload(fileUploading) {
         const data = new FormData()
