@@ -21,8 +21,8 @@ function Upload(props) {
             { ({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
                 <div className="drop-container" 
                     {...getRootProps()}
-                    isDragActive={isDragActive}
-                    isDragReject={isDragReject}>
+                    isdragactive={isDragActive.toString()}
+                    isdragreject={isDragReject.toString()}>
 
                     <input {...getInputProps()}/>
                     {renderDragMessage(isDragActive, isDragReject)}

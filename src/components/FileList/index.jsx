@@ -35,7 +35,7 @@ function FileList({ files, onDelete }) {
                         )}
 
                         {uploadedFile.url && (
-                            <a href="http://localhost:3003/files/1090ce50d7fd8846860aab7570b10de8-índice.jpg" 
+                            <a href={uploadedFile.url} 
                                 target="_blank" rel="noopener noreferrer"
                             >
                                 <MdLink style={{ marginRight: 8 }} size={24} color="#222" />    
